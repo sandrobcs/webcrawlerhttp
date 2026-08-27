@@ -1,0 +1,24 @@
+{
+  "name": "webcrawlerhttp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/sandrobcs/webcrawlerhttp#readme",
+  "bugs": {
+    "url": "https://github.com/sandrobcs/webcrawlerhttp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandrobcs/webcrawlerhttp.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
