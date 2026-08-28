@@ -5,33 +5,33 @@ async function crawlPage(baseURL, currentURL, pages) {
   const currentURlObj = new URL(currentURL);
 
   if (baseURlObj.hostname !== currentURlObj.hostname) {
-    return pages
+    return pages;
   }
 
   const normalizedCurrentURL = normalizeURL(currentURL);
   if (pages[normalizedCurrentURL] > 0) {
     pages[normalizedCurrentURL]++;
-    return pages
+    return pages;
   }
 
   pages[normalizedCurrentURL] = 1;
-  console.log(`crawling: ${currentURL}`);
+  console.log(`Crawling: ${currentURL}`);
 
   try {
     const resp = await fetch(currentURL);
     if (resp.status > 399) {
       console.log(
-        `error in fetch with status code: ${resp.status} on page: ${currentURL}`,
+        `Error in fetch with status code: ${resp.status}; on page: ${currentURL}`,
       );
-      return pages
+      return pages;
     }
 
     const contentType = resp.headers.get("content-type");
     if (!contentType.includes("text/html")) {
       console.log(
-        `non html response, content type: ${contentType} on page: ${currentURL}`,
+        `Non HTML response, content type: ${contentType}; on page: ${currentURL}`,
       );
-      return pages
+      return pages;
     }
 
     const htmlBody = await resp.text();
@@ -43,7 +43,7 @@ async function crawlPage(baseURL, currentURL, pages) {
     }
     return pages;
   } catch (err) {
-    console.log(`error in fetch: ${err.message} in page: ${currentURL}`);
+    console.log(`Error in fetch: ${err.message}; on page: ${currentURL}`);
   }
 }
 
@@ -64,20 +64,20 @@ function getURLsFromHTML(HTMLBodyElement, baseURL) {
 
   for (const linkElement of linkElements) {
     if (linkElement.href.slice(0, 1) === "/") {
-      //relative url
+      //Relative URL
       try {
         const urlObj = new URL(`${baseURL}${linkElement.href}`);
         urls.push(urlObj.href);
       } catch (err) {
-        console.log(`erro with relative url: ${err.message}`);
+        console.log(`Error with relative url: ${err.message}`);
       }
     } else {
-      //absolute url
+      //Absolute URL
       try {
         const urlObj = new URL(linkElement.href);
         urls.push(urlObj.href);
       } catch (err) {
-        console.log(`erro with absolute url: ${err.message}`);
+        console.log(`Error with absolute url: ${err.message}`);
       }
     }
   }
